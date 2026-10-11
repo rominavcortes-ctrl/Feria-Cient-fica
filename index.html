@@ -3,25 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Realidad Aumentada - Feria Científica</title>
-  <!-- Cargamos el visor 3D de Google -->
+  <title>Mecanismo de la Vacuna - AR</title>
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
   <style>
-    body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; font-family: sans-serif; }
-    model-viewer { width: 100%; height: 100%; background-color: #f5f5f5; }
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; background: #eef2f7; }
+    model-viewer { width: 100%; height: 100%; }
+
+    /* Caja explicativa superior */
+    .info-box {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #2c3e50;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10;
+      text-align: center;
+    }
+
+    /* Barra de botones inferior para los niños */
+    .step-panel {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 14px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .btn-step {
+      border: none;
+      background: #007bff;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-step.active {
+      background: #28a745;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
 
-  <!-- Visor WebAR -->
+  <!-- Mensaje explicativo cambiante -->
+  <div class="info-box" id="infoText">
+    🦠 <b>Paso 1:</b> El virus de la influenza intenta invadir las células.
+  </div>
+
+  <!-- Visor 3D / AR -->
   <model-viewer 
+    id="viewer"
     src="Flu_NIH3D.glb" 
-    alt="Modelo 3D Virus Gripal" 
+    alt="Modelo Virus de la Influeza" 
     ar 
     ar-modes="webxr scene-viewer quick-look" 
     camera-controls 
     auto-rotate>
   </model-viewer>
+
+  <!-- Botones de interactivas -->
+  <div class="step-panel">
+    <button class="btn-step active" onclick="cambiarPaso(1, 'Flu_NIH3D.glb', '🦠 <b>Paso 1:</b> El virus de la influenza llega al cuerpo para infectar.')">Paso 1: Virus</button>
+    <button class="btn-step" onclick="cambiarPaso(2, 'anticuerpo.glb', '🛡️ <b>Paso 2:</b> ¡Llega el anticuerpo de la vacuna y bloquea la proteína de entrada!')">Paso 2: Vacuna</button>
+  </div>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const infoText = document.getElementById('infoText');
+    const buttons = document.querySelectorAll('.btn-step');
+
+    function cambiarPaso(paso, archivoGlb, explicacion) {
+      viewer.src = archivoGlb;
+      infoText.innerHTML = explicacion;
+
+      buttons.forEach((btn, index) => {
+        if (index === paso - 1) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>
