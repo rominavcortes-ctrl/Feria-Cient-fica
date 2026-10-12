@@ -15,7 +15,6 @@
       align-items: center; justify-content: center; 
     }
 
-    /* Globos de texto del superhéroe */
     .speech-box {
       position: absolute;
       top: 20px;
@@ -36,7 +35,6 @@
       justify-content: center;
     }
 
-    /* Visor interactivo del personaje SVG */
     .character-container {
       width: 100%;
       height: 55vh;
@@ -52,7 +50,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Panel de control de la secuencia */
     .control-panel {
       position: absolute;
       bottom: 25px;
@@ -85,17 +82,14 @@
 </head>
 <body>
 
-  <!-- Mensaje explicativo del héroe -->
   <div class="speech-box" id="speechText">
     🛡️ <b>Superhéroe 1:</b> ¡Las vacunas son 100% seguras! Le enseñan a tu cuerpo a defenderse como un entrenamiento, ¡sin hacerte enfermar!
   </div>
 
-  <!-- Imagen png del Superhéroe actual -->
   <div class="character-container">
     <img id="heroImg" src="superheroe1.png" alt="Superhéroe de las vacunas" class="character-img">
   </div>
 
-  <!-- Botones para alternar entre los 3 superhéroes -->
   <div class="control-panel">
     <button class="btn-hero active" onclick="cambiarHeroe(1)">Héroe 1</button>
     <button class="btn-hero" onclick="cambiarHeroe(2)">Héroe 2</button>
