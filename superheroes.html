@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Superhéroes de las Vacunas</title>
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { 
+      margin: 0; padding: 0; 
+      width: 100vw; height: 100vh; 
+      overflow: hidden; 
+      background: #eef2f7; 
+      display: flex; flex-direction: column; 
+      align-items: center; justify-content: center; 
+    }
+
+    /* Globos de texto del superhéroe */
+    .speech-box {
+      position: absolute;
+      top: 20px;
+      left: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 16px;
+      border-radius: 16px;
+      border: 3px solid #007bff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      font-size: 15px;
+      color: #2c3e50;
+      z-index: 10;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Visor interactivo del personaje SVG */
+    .character-container {
+      width: 100%;
+      height: 55vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .character-img {
+      max-height: 100%;
+      max-width: 85%;
+      filter: drop-shadow(0px 8px 18px rgba(0,0,0,0.2));
+      transition: all 0.3s ease;
+    }
+
+    /* Panel de control de la secuencia */
+    .control-panel {
+      position: absolute;
+      bottom: 25px;
+      display: flex;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 10px 14px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .btn-hero {
+      border: none;
+      background: #007bff;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-hero.active {
+      background: #28a745;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mensaje explicativo del héroe -->
+  <div class="speech-box" id="speechText">
+    🛡️ <b>Superhéroe 1:</b> ¡Las vacunas son 100% seguras! Le enseñan a tu cuerpo a defenderse como un entrenamiento, ¡sin hacerte enfermar!
+  </div>
+
+  <!-- Imagen SVG del Superhéroe actual -->
+  <div class="character-container">
+    <img id="heroImg" src="superheroe1.svg" alt="Superhéroe de las vacunas" class="character-img">
+  </div>
+
+  <!-- Botones para alternar entre los 3 superhéroes -->
+  <div class="control-panel">
+    <button class="btn-hero active" onclick="cambiarHeroe(1)">Héroe 1</button>
+    <button class="btn-hero" onclick="cambiarHeroe(2)">Héroe 2</button>
+    <button class="btn-hero" onclick="cambiarHeroe(3)">Héroe 3</button>
+  </div>
+
+  <script>
+    const datosHeroes = {
+      1: {
+        img: 'superheroe1.svg',
+        texto: '🛡️ <b>Superhéroe 1:</b> ¡Las vacunas son 100% seguras! Le enseñan a tu cuerpo a defenderse como un entrenamiento, ¡sin hacerte enfermar!'
+      },
+      2: {
+        img: 'superheroe2.svg',
+        texto: '👥 <b>Superhéroe 2:</b> ¡Tu vacuna es un escudo para todos! Al vacunarte, proteges a tus amigos, abuelitos y a quienes te rodean.'
+      },
+      3: {
+        img: 'superheroe3.svg',
+        texto: '🦠 <b>Superhéroe 3:</b> ¡Un superpoder contra las enfermedades! Las vacunas le dan memoria a tu cuerpo para bloquear virus antes de que entren.'
+      }
+    };
+
+    const heroImg = document.getElementById('heroImg');
+    const speechText = document.getElementById('speechText');
+    const buttons = document.querySelectorAll('.btn-hero');
+
+    function cambiarHeroe(numero) {
+      heroImg.src = datosHeroes[numero].img;
+      speechText.innerHTML = datosHeroes[numero].texto;
+
+      buttons.forEach((btn, index) => {
+        if (index === numero - 1) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
